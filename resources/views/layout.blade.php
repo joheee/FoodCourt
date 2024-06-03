@@ -36,6 +36,7 @@
         .card-title {
             font-size: 1.5rem;
             font-weight: bold;
+            margin-bottom: 0px !important;
         }
         .card-subtitle {
             font-size: 1rem;

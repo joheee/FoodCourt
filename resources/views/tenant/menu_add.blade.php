@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title','Sign In | E - Foodcourt')
+@section('title','Add Menu | E - Foodcourt')
 
 @section('content')
 
@@ -17,13 +17,13 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                    <form method="POST" action="{{route('guest.handleLogin')}}">
+                    <form method="POST" action="">
                         @csrf
                         <a href="" class="d-flex align-items-center mb-3 pb-1">
                             <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>
                         </a>
 
-                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in to your account</h5>
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Add new menu</h5>
 
                         <div class="form-outline mb-4">
                             <input type="text" id="form2Example17" class="form-control form-control-lg" placeholder="email" name="email" value='{{Cookie::get('last_email') ? Cookie::get('last_email') : ''}}'/>
@@ -40,11 +40,11 @@
                         @endif
 
                         <div class="pt-1 mb-4">
-                            <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
+                            <button class="btn btn-dark btn-lg btn-block" type="submit">Add</button>
                         </div>
 
-                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href={{route('guest.registerPage')}}
-                            style="color: #22C7A9;">Sign up here</a></p>
+                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Back to menu page? <a href={{route('tenant.menuPage')}}
+                            style="color: #22C7A9;">Click here</a></p>
                     </form>
 
                 </div>

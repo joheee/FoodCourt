@@ -12,9 +12,9 @@
                     <p class="card-text text-white"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
-            <div class="card p-3 mb-3 shadow-sm" style="display: flex; justify-content: center; align-items: center">
+            <a href="{{route('tenant.menuAddPage')}}" class="card p-3 mb-3 shadow-sm" style="display: flex; justify-content: center; align-items: center">
                 <i class="fa-solid fa-plus"></i>
-            </div>
+            </a>
         </div>
     </div>
 </div>

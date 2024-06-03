@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use App\Models\TenantMenuCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
 {
     public function allPage(){
-        return view('tenant.all');
+        $category = TenantMenuCategory::take(6)->get();
+        return view('tenant.all', compact('category'));
     }
     public function menuPage(){
         return view('tenant.menu');
@@ -21,7 +23,22 @@ class TenantController extends Controller
         return view('tenant.transaction');
     }
     public function categoryPage(){
-        return view('tenant.category');
+        $category = TenantMenuCategory::all();
+        return view('tenant.category', compact('category'));
+    }
+    public function menuAddPage(){
+        return view('tenant.menu_add');
+    }
+    public function categoryAddPage(){
+        return view('tenant.category_add');
+    }
+    public function handleCategoryAdd(Request $request){
+        $request->validate([
+            'tenant_menu_category_name' => 'required|min:3|unique:tenant_menu_categorys,tenant_menu_category_name'
+        ]);
+
+        TenantMenuCategory::create($request->all());
+        return redirect()->route('tenant.categoryPage');
     }
     // Tenant creation by SuperUser
     public function create(Request $request)

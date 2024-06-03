@@ -27,7 +27,7 @@
             <a href="">View All</a>
         </div>
         <div class="container-fluid dynamic-container">
-            <div class="card p-3 mb-3 shadow-sm">
+            <div class="card p-3 shadow-sm">
                 <div class="card-title mb-2" style="font-size: 1.5rem; font-weight: bold;">Title</div>
                 <div class="card-subtitle text-muted" style="font-size: 1rem; font-weight: normal;">Date</div>
             </div>
@@ -42,10 +42,26 @@
             <a href="">View All</a>
         </div>
         <div class="container-fluid dynamic-container">
-            <div class="card p-3 mb-3 shadow-sm">
+            <div class="card p-3 shadow-sm">
                 <div class="card-title mb-2" style="font-size: 1.5rem; font-weight: bold;">Title</div>
                 <div class="card-subtitle text-muted" style="font-size: 1rem; font-weight: normal;">Date</div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="w-50">
+        <div class="d-flex justify-content-between">
+            <div class="">Categories</div>
+            <a href="{{route('tenant.categoryPage')}}">View All</a>
+        </div>
+        <div class="container-fluid dynamic-container">
+            @foreach ($category as $c)
+            <div class="card p-3 shadow-sm">
+                <div class="card-title" style="font-size: 1.5rem; font-weight: bold;">{{$c->tenant_menu_category_name}}</div>
+            </div>
+            @endforeach
         </div>
     </div>
 </div>
