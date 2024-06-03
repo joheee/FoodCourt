@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +36,6 @@ Route::prefix('tenant')->group(function () {
     Route::post('/category/add', [TenantController::class, 'handleCategoryAdd'])->name('tenant.handleCategoryAdd');
 });
 
+Route::prefix('admin')->group(function() {
+    Route::get('/', [AdminController::class, 'dashboardPage'])->name('admin.dashboardPage');
+});

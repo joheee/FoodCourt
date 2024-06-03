@@ -50,7 +50,7 @@ class UserController extends Controller
             return redirect()->route('guest.registerPage');
         }
         if(Auth::guard('superuser')->attempt($request->only('email','password'))) {
-            return redirect()->route('guest.registerPage');
+            return redirect()->route('admin.dashboardPage');
         }
         if(Auth::guard('tenant')->attempt($request->only('email','password'))) {
             return redirect()->route('tenant.allPage');

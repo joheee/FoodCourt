@@ -30,6 +30,18 @@
 
     <style class="">
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&family=Pacifico&family=Poppins:ital,wght@1,600&display=swap');
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto 2fr;
+            height: 100vh;
+        }
+
+        .inner-content {
+            background-color: #22C7A9;
+            padding: 20px;
+        }
+
         .dynamic-container {
             margin-top: 20px;
         }
