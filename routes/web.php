@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,6 @@ Route::get('/', [UserController::class, 'loginPage'])->name('guest.loginPage');
 Route::post('/', [UserController::class, 'handleLogin'])->name('guest.handleLogin');
 Route::get('/register', [UserController::class, 'registerPage'])->name('guest.registerPage');
 Route::post('/register', [UserController::class, 'handleRegister'])->name('guest.handleRegister');
+
+Route::get('/tenant', [TenantController::class, 'allPage'])->name('tenant.allPage');
+Route::get('logout', [UserController::class, 'handleLogout'])->name('guest.handleLogout');

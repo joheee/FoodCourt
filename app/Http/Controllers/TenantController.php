@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
 {
-    // Middleware untuk authentication super users dihapus dikarenakan function di tenantController tidak hanya bisa diakses oleh superuser
+    public function allPage(){
+        return view('tenant.all');
+    }
 
     // Tenant creation by SuperUser
     public function create(Request $request)

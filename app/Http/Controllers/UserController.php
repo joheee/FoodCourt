@@ -53,12 +53,32 @@ class UserController extends Controller
             return redirect()->route('guest.registerPage');
         }
         if(Auth::guard('tenant')->attempt($request->only('email','password'))) {
-            return redirect()->route('guest.registerPage');
+            return redirect()->route('tenant.allPage');
         }
 
         return redirect()->back()->withErrors([
              'email' => 'These credentials do not match our records.',
         ])->withInput($request->only('email', 'remember'));
+    }
+    public function handleLogout(Request $request)
+    {
+        // Check and logout from each guard
+        if (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
+        }
+
+        if (Auth::guard('superuser')->check()) {
+            Auth::guard('superuser')->logout();
+        }
+
+        if (Auth::guard('tenant')->check()) {
+            Auth::guard('tenant')->logout();
+        }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('guest.loginPage');
     }
 
     public function store(Request $request)

@@ -31,6 +31,48 @@
     <style class="">
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&family=Pacifico&family=Poppins:ital,wght@1,600&display=swap');
 
+        .bg-image {
+            position: relative;
+        }
+
+        .card {
+            margin-bottom: 0px !important;
+        }
+
+        .dynamic-container {
+            display: grid;
+            grid-template-columns: 400px 400px;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .card-img {
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .card-img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar-button {
+            color: white;
+            padding: 0 10px;
+        }
+        .navbar-button:hover {
+            color: #242424;
+            background-color: white !important;
+            border-radius: 20px !important;
+        }
         .logo {
             font-family: 'Pacifico';
         }
@@ -43,7 +85,6 @@
             color: #000;
             overflow-x: hidden;
             height: 100%;
-            background: linear-gradient(45deg, #304FFE 50%, #EEEEEE 50%);
             background-repeat: no-repeat;
         }
 
