@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,12 +31,34 @@ class UserController extends Controller
             'confirm_password' => 'required|string|min:4    ',
         ]);
 
-        $request['password'] = bcrypt($request['password']);
-
+        $request['password'] = Hash::make($request['password']);
+        Cookie::queue('last_email', $request['email'], 60 * 24 * 30);
         User::create($request->all());
 
         return redirect()->route('guest.loginPage')
             ->with('success', 'User created successfully.');
+    }
+    public function handleLogin(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        Cookie::queue('last_email', $request['email'], 60 * 24 * 30);
+
+        if(Auth::guard('web')->attempt($request->only('email','password'))){
+            return redirect()->route('guest.registerPage');
+        }
+        if(Auth::guard('superuser')->attempt($request->only('email','password'))) {
+            return redirect()->route('guest.registerPage');
+        }
+        if(Auth::guard('tenant')->attempt($request->only('email','password'))) {
+            return redirect()->route('guest.registerPage');
+        }
+
+        return redirect()->back()->withErrors([
+             'email' => 'These credentials do not match our records.',
+        ])->withInput($request->only('email', 'remember'));
     }
 
     public function store(Request $request)

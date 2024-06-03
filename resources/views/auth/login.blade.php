@@ -26,7 +26,7 @@
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in to your account</h5>
 
                         <div class="form-outline mb-4">
-                            <input type="email" id="form2Example17" class="form-control form-control-lg" placeholder="email" name="email" value='{{Cookie::get('last_email') ? Cookie::get('last_email') : ''}}'/>
+                            <input type="text" id="form2Example17" class="form-control form-control-lg" placeholder="email" name="email" value='{{Cookie::get('last_email') ? Cookie::get('last_email') : ''}}'/>
                         </div>
 
                         <div class="form-outline mb-4">

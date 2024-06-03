@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [UserController::class, 'loginPage'])->name('guest.loginPage');
+Route::post('/', [UserController::class, 'handleLogin'])->name('guest.handleLogin');
 Route::get('/register', [UserController::class, 'registerPage'])->name('guest.registerPage');
 Route::post('/register', [UserController::class, 'handleRegister'])->name('guest.handleRegister');
