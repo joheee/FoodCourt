@@ -17,7 +17,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                  <form method="POST" action="">
+                  <form method="POST" action="{{route('guest.handleRegister')}}">
                     @csrf
                     <a href="" class="d-flex align-items-center mb-3 pb-1">
                         <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>
@@ -26,11 +26,15 @@
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Hola new user!</h5>
 
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example17" class="form-control form-control-lg" name="email" placeholder="input your new email"/>
+                        <input type="text" id="form2Example17" class="form-control form-control-lg" name='name' placeholder="input your name"/>
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="text" id="form2Example17" class="form-control form-control-lg" name='username' placeholder="input your username"/>
+                        <input type="number" id="form2Example17" class="form-control form-control-lg" name='phone_number' placeholder="input your phone number"/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="form2Example17" class="form-control form-control-lg" name="email" placeholder="input your email"/>
                     </div>
 
                     <div class="form-outline mb-4">

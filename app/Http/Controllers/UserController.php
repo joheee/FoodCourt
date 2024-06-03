@@ -9,11 +9,6 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function loginPage()
     {
         $users = Auth::guard('web')->user();
@@ -24,13 +19,24 @@ class UserController extends Controller
         $users = Auth::guard('web')->user();
         return view('auth.register', compact('users'));
     }
+    public function handleRegister(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'email' => 'required|email|unique:users|unique:tenants,email|unique:super_users,email',
+            'phone_number' => 'required|string|max:255',
+            'password' => 'required|string|min:4',
+            'confirm_password' => 'required|string|min:4    ',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        $request['password'] = bcrypt($request['password']);
+
+        User::create($request->all());
+
+        return redirect()->route('guest.loginPage')
+            ->with('success', 'User created successfully.');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
