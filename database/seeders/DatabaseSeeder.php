@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\SuperUser;
 use App\Models\Tenant;
+use App\Models\TenantMenuCategory;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,6 +31,15 @@ class DatabaseSeeder extends Seeder
             'tenant_location' => 'Jl. Tanjung Duren',
             'password' => Hash::make('tenant_a'),
             'super_user_id' => 1,
+        ]);
+        TenantMenuCategory::create([
+            'tenant_menu_category_name' => 'Fast Food'
+        ]);
+        TenantMenuCategory::create([
+            'tenant_menu_category_name' => 'Vegetables'
+        ]);
+        TenantMenuCategory::create([
+            'tenant_menu_category_name' => 'Meat'
         ]);
     }
 }

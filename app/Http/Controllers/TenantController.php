@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use App\Models\TenantMenu;
 use App\Models\TenantMenuCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,12 @@ class TenantController extends Controller
 {
     public function allPage(){
         $category = TenantMenuCategory::take(6)->get();
-        return view('tenant.all', compact('category'));
+        $menu = TenantMenu::take(6)->get();
+        return view('tenant.all', compact('category', 'menu'));
     }
     public function menuPage(){
-        return view('tenant.menu');
+        $menu = TenantMenu::all();
+        return view('tenant.menu', compact('menu'));
     }
     public function orderPage(){
         return view('tenant.order');
@@ -27,10 +30,31 @@ class TenantController extends Controller
         return view('tenant.category', compact('category'));
     }
     public function menuAddPage(){
-        return view('tenant.menu_add');
+        $category = TenantMenuCategory::all();
+        return view('tenant.menu_add', compact('category'));
     }
     public function categoryAddPage(){
         return view('tenant.category_add');
+    }
+    public function handleMenuAdd(Request $request){
+        $request->validate([
+            'tenant_menu_name' => 'required|min:3|unique:tenant_menus,tenant_menu_name',
+            'tenant_menu_price' => 'required',
+            'tenant_menu_description' => 'required|min:3',
+            'tenant_menu_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
+        ]);
+        $image = $request->file('tenant_menu_picture');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/assets/menu', $imageName);
+
+        // Prepare data for creating a new tenant menu
+        $data = $request->except('tenant_menu_picture');
+        $data['tenant_menu_picture'] = $imageName;
+        $data['tenant_id'] = Auth::guard('tenant')->id();
+
+        // Create a new tenant menu
+        TenantMenu::create($data);
+        return redirect()->route('tenant.menuPage');
     }
     public function handleCategoryAdd(Request $request){
         $request->validate([

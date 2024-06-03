@@ -4,6 +4,36 @@
 
 @section('content')
 
+<style>
+.card-img-label {
+    position: relative;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.card-img-label:hover .card-img-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#imagePreview {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
+
 <section class="vh-100" style="background-color: #22C7A9;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -17,7 +47,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                    <form method="POST" action="">
+                    <form method="POST" enctype="multipart/form-data" action="{{route('tenant.handleMenuAdd')}}">
                         @csrf
                         <a href="" class="d-flex align-items-center mb-3 pb-1">
                             <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>
@@ -26,12 +56,32 @@
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Add new menu</h5>
 
                         <div class="form-outline mb-4">
-                            <input type="text" id="form2Example17" class="form-control form-control-lg" placeholder="email" name="email" value='{{Cookie::get('last_email') ? Cookie::get('last_email') : ''}}'/>
+                            <input value="menu a" type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_name" placeholder="menu's name"/>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input value="menu a" type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_description" placeholder="menu's description"/>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input value="123" type="number" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_price" placeholder="menu's price"/>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input value="1" type="number" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_status" placeholder="menu's price"/>
+                        </div>
+                        <select class="form-select mb-4" name="tenant_menu_category_id" aria-label="Default select example">
+                            @foreach($category as $cat)
+                                <option selected value="{{ $cat->id }}">{{ $cat->tenant_menu_category_name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="card bg-image" style="margin-bottom: 25px !important; height: 250px; position: relative;">
+                            <input type="file" name="tenant_menu_picture" id="imageInput" style="display: none;" accept="image/*" />
+                            <label for="imageInput" class="card-img-label" style="cursor: pointer; display: block; height: 100%; width: 100%;">
+                                <img src="{{asset('storage/assets/sushi.jpg')}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
+                                <div class="card-img-overlay d-flex justify-content-center align-items-center" style="background: rgba(0, 0, 0, 0.3);">
+                                    <i class="fa-solid fa-plus text-white" style="font-size: 24px;"></i>
+                                </div>
+                            </label>
                         </div>
 
-                        <div class="form-outline mb-4">
-                            <input type="password" id="form2Example27" class="form-control form-control-lg" placeholder="password" name="password"/>
-                        </div>
 
                         @if ($errors->any())
                             <div class="alert alert-danger" role="alert" >
@@ -55,5 +105,15 @@
       </div>
     </div>
 </section>
+
+<script>
+document.getElementById('imageInput').addEventListener('change', function(event) {
+    const [file] = event.target.files;
+    if (file) {
+        document.getElementById('imagePreview').src = URL.createObjectURL(file);
+    }
+});
+
+</script>
 
 @endsection

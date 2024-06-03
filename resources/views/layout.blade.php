@@ -44,6 +44,7 @@
         }
         .bg-image {
             position: relative;
+            object-fit: cover
         }
 
         .card {

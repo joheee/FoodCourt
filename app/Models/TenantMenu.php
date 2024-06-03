@@ -28,6 +28,7 @@ class TenantMenu extends Model
         'tenant_menu_name',
         'tenant_menu_description',
         'tenant_menu_price',
+        'tenant_menu_picture',
         'tenant_menu_status'
     ];
 

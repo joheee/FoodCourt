@@ -28,6 +28,7 @@ Route::prefix('tenant')->group(function () {
 
     Route::get('/menu', [TenantController::class, 'menuPage'])->name('tenant.menuPage');
     Route::get('/menu/add', [TenantController::class, 'menuAddPage'])->name('tenant.menuAddPage');
+    Route::post('/menu/add', [TenantController::class, 'handleMenuAdd'])->name('tenant.handleMenuAdd');
 
     Route::get('/category', [TenantController::class, 'categoryPage'])->name('tenant.categoryPage');
     Route::get('/category/add', [TenantController::class, 'categoryAddPage'])->name('tenant.categoryAddPage');

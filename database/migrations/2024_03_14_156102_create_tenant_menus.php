@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('tenant_id')->constrained('tenants')->cascadeOnDelete();
             $table->foreignId('tenant_menu_category_id')->constrained('tenant_menu_categorys');
             $table->string('tenant_menu_name');
+            $table->string('tenant_menu_picture');
             $table->string('tenant_menu_description');
             $table->unsignedDouble('tenant_menu_price');
             $table->integer('tenant_menu_status');
