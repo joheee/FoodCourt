@@ -11,7 +11,18 @@ class TenantController extends Controller
     public function allPage(){
         return view('tenant.all');
     }
-
+    public function menuPage(){
+        return view('tenant.menu');
+    }
+    public function orderPage(){
+        return view('tenant.order');
+    }
+    public function transactionPage(){
+        return view('tenant.transaction');
+    }
+    public function categoryPage(){
+        return view('tenant.category');
+    }
     // Tenant creation by SuperUser
     public function create(Request $request)
     {

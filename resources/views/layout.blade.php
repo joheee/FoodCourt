@@ -30,7 +30,17 @@
 
     <style class="">
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&family=Pacifico&family=Poppins:ital,wght@1,600&display=swap');
-
+        .dynamic-container {
+            margin-top: 20px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .card-subtitle {
+            font-size: 1rem;
+            font-weight: normal;
+        }
         .bg-image {
             position: relative;
         }

@@ -21,4 +21,8 @@ Route::get('/register', [UserController::class, 'registerPage'])->name('guest.re
 Route::post('/register', [UserController::class, 'handleRegister'])->name('guest.handleRegister');
 
 Route::get('/tenant', [TenantController::class, 'allPage'])->name('tenant.allPage');
+Route::get('/tenant/menu', [TenantController::class, 'menuPage'])->name('tenant.menuPage');
+Route::get('/tenant/order', [TenantController::class, 'orderPage'])->name('tenant.orderPage');
+Route::get('/tenant/transaction', [TenantController::class, 'transactionPage'])->name('tenant.transactionPage');
+Route::get('/tenant/category', [TenantController::class, 'categoryPage'])->name('tenant.categoryPage');
 Route::get('logout', [UserController::class, 'handleLogout'])->name('guest.handleLogout');
