@@ -31,7 +31,7 @@ class TenantController extends Controller
     }
     public function menuAddPage(){
         $category = TenantMenuCategory::all();
-        return view('tenant.menu_add', compact('category'));
+        return view('tenant.menu_add', compact('catego ry'));
     }
     public function categoryAddPage(){
         return view('tenant.category_add');

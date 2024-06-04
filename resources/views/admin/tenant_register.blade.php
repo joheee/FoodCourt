@@ -47,7 +47,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                  <form method="POST" action="{{route('admin.handleTenantRegister')}}">
+                  <form method="POST" enctype="multipart/form-data" action="{{route('admin.handleTenantRegister')}}">
                     @csrf
                     <a href="" class="d-flex align-items-center mb-3 pb-1">
                         <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>

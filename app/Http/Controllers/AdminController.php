@@ -27,7 +27,6 @@ class AdminController extends Controller
             'confirm_password' => 'required|string|min:4',
             'tenant_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
         ]);
-
         $image = $request->file('tenant_picture');
         $imageName = time().'.'.$image->getClientOriginalExtension();
         $image->storeAs('public/assets/tenant', $imageName);
@@ -35,10 +34,9 @@ class AdminController extends Controller
         // Prepare data for creating a new tenant menu
         $data = $request->except('tenant_picture');
         $data['tenant_picture'] = $imageName;
-
         $request['password'] = Hash::make($request['password']);
-        $data = $request->all();
         $data['super_user_id'] = Auth::guard('superuser')->id();
+
         Tenant::create($data);
         return redirect()->route('admin.dashboardPage');
     }
