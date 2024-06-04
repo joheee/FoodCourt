@@ -25,7 +25,16 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users|unique:tenants,email|unique:super_users,email',
             'password' => 'required|string|min:4',
             'confirm_password' => 'required|string|min:4',
+            'tenant_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
         ]);
+
+        $image = $request->file('tenant_picture');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/assets/tenant', $imageName);
+
+        // Prepare data for creating a new tenant menu
+        $data = $request->except('tenant_picture');
+        $data['tenant_picture'] = $imageName;
 
         $request['password'] = Hash::make($request['password']);
         $data = $request->all();

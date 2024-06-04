@@ -27,6 +27,7 @@ class Tenant extends Authenticatable
      */
     protected $fillable = [
         'tenant_name',
+        'tenant_picture',
         'email',
         'tenant_location',
         'password',

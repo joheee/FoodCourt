@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Tenant::create([
             'tenant_name' => 'tenant a',
+            'tenant_picture' => 'tenant.jpg',
             'email' => 'tenant_a@gmail.com',
             'tenant_location' => 'Jl. Tanjung Duren',
             'password' => Hash::make('tenant_a'),

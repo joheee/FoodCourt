@@ -56,13 +56,13 @@
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Add new menu</h5>
 
                         <div class="form-outline mb-4">
-                            <input value="menu a" type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_name" placeholder="menu's name"/>
+                            <input type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_name" placeholder="menu's name"/>
                         </div>
                         <div class="form-outline mb-4">
-                            <input value="menu a" type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_description" placeholder="menu's description"/>
+                            <input type="text" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_description" placeholder="menu's description"/>
                         </div>
                         <div class="form-outline mb-4">
-                            <input value="123" type="number" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_price" placeholder="menu's price"/>
+                            <input  type="number" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_price" placeholder="menu's price"/>
                         </div>
                         <div class="form-outline mb-4">
                             <input value="1" type="number" id="form2Example27" class="form-control form-control-lg" name="tenant_menu_status" placeholder="menu's price"/>

@@ -4,6 +4,36 @@
 
 @section('content')
 
+<style>
+.card-img-label {
+    position: relative;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.card-img-label:hover .card-img-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#imagePreview {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
+
 <section class="vh-100" style="background-color: #22C7A9;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -45,6 +75,16 @@
                         <input type="password" id="form2Example27" class="form-control form-control-lg" name='confirm_password' placeholder="confirm tenant password"/>
                     </div>
 
+                    <div class="card bg-image" style="margin-bottom: 25px !important; height: 250px; position: relative;">
+                        <input type="file" name="tenant_picture" id="imageInput" style="display: none;" accept="image/*" />
+                        <label for="imageInput" class="card-img-label" style="cursor: pointer; display: block; height: 100%; width: 100%;">
+                            <img src="{{asset('storage/assets/sushi.jpg')}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
+                            <div class="card-img-overlay d-flex justify-content-center align-items-center" style="background: rgba(0, 0, 0, 0.3);">
+                                <i class="fa-solid fa-plus text-white" style="font-size: 24px;"></i>
+                            </div>
+                        </label>
+                    </div>
+
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert" >
                             {{$errors->first()}}
@@ -67,5 +107,16 @@
       </div>
     </div>
 </section>
+
+
+<script>
+document.getElementById('imageInput').addEventListener('change', function(event) {
+    const [file] = event.target.files;
+    if (file) {
+        document.getElementById('imagePreview').src = URL.createObjectURL(file);
+    }
+});
+
+</script>
 
 @endsection

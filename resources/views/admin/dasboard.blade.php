@@ -5,10 +5,13 @@
     <div class="text-center fw-bold display-6">Tenant List</div>
     <div class="container-fluid dynamic-container">
         @foreach ($tenant as $t)
-            <div class="card p-3 mb-3 shadow-sm">
-                <div class="card-title mb-2" style="font-size: 1.5rem; font-weight: bold;">{{$t->tenant_name}} | {{$t->email}}</div>
-                <div class="card-subtitle text-muted" style="font-size: 1rem; font-weight: normal;">{{$t->tenant_location}}</div>
-            </div>
+            <div class="card bg-image">
+                    <img src="{{ asset('storage/assets/tenant/' . $t->tenant_picture) }}" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title text-white">{{$t->tenant_name}}</h5>
+                        <p class="card-text text-white">{{$t->tenant_location}}</p>
+                    </div>
+                </div>
         @endforeach
         <a href="{{route('admin.tenantRegisterPage')}}" class="card p-3 mb-3 shadow-sm" style="display: flex; justify-content: center; align-items: center">
             <i class="fa-solid fa-plus"></i>
