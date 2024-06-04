@@ -38,4 +38,6 @@ Route::prefix('tenant')->group(function () {
 
 Route::prefix('admin')->group(function() {
     Route::get('/', [AdminController::class, 'dashboardPage'])->name('admin.dashboardPage');
+    Route::get('/tenant-register', [AdminController::class, 'tenantRegisterPage'])->name('admin.tenantRegisterPage');
+    Route::post('/tenant-register', [AdminController::class, 'handleTenantRegister'])->name('admin.handleTenantRegister');
 });

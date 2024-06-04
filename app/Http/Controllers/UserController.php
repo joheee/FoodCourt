@@ -28,7 +28,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users|unique:tenants,email|unique:super_users,email',
             'phone_number' => 'required|string|max:255',
             'password' => 'required|string|min:4',
-            'confirm_password' => 'required|string|min:4    ',
+            'confirm_password' => 'required|string|min:4',
         ]);
 
         $request['password'] = Hash::make($request['password']);

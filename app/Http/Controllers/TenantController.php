@@ -12,11 +12,11 @@ class TenantController extends Controller
 {
     public function allPage(){
         $category = TenantMenuCategory::take(6)->get();
-        $menu = TenantMenu::take(6)->get();
+        $menu = TenantMenu::where('tenant_id', Auth::guard('tenant')->id())->take(6)->get();
         return view('tenant.all', compact('category', 'menu'));
     }
     public function menuPage(){
-        $menu = TenantMenu::all();
+        $menu = TenantMenu::where('tenant_id', Auth::guard('tenant')->id())->get();
         return view('tenant.menu', compact('menu'));
     }
     public function orderPage(){

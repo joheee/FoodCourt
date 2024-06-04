@@ -2,16 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tenant;
 use App\Models\TenantMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function dashboardPage()
     {
-        $menu = TenantMenu::all();
-        return view('admin.dasboard', compact('menu'));
+        $tenant = Tenant::all();
+        return view('admin.dasboard', compact('tenant'));
     }
+    public function tenantRegisterPage(){
+        return view('admin.tenant_register');
+    }
+    public function handleTenantRegister(Request $request){
+        $request->validate([
+            'tenant_name' => 'required|string|max:255',
+            'tenant_location' => 'required|string|max:20',
+            'email' => 'required|email|unique:users|unique:tenants,email|unique:super_users,email',
+            'password' => 'required|string|min:4',
+            'confirm_password' => 'required|string|min:4',
+        ]);
+
+        $request['password'] = Hash::make($request['password']);
+        $data = $request->all();
+        $data['super_user_id'] = Auth::guard('superuser')->id();
+        Tenant::create($data);
+        return redirect()->route('admin.dashboardPage');
+    }
+
 
     /**
      * Show the form for creating a new resource.
