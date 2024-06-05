@@ -48,4 +48,5 @@ Route::prefix('admin')->middleware('admin')->group(function() {
 Route::prefix('customer')->middleware('customer')->group(function() {
     Route::get('/', [CustomerController::class, 'landingPage'])->name('customer.landingPage');
     Route::get('/tenant/{id}', [CustomerController::class, 'tenantDetailPage'])->name('customer.tenantDetailPage');
+    Route::get('/cart/{id}/{isUpdate}', [CustomerController::class, 'handleAddToCart'])->name('customer.handleAddToCart');
 });

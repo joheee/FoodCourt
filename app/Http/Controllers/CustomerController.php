@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -16,7 +19,47 @@ class CustomerController extends Controller
     {
         $tenant = Tenant::find($id)->first();
         $menu = $tenant->tenantMenus;
-        return view('customer.tenant_detail', compact('tenant', 'menu'));
+        $user_id = Auth::guard('web')->id();
+
+        $quantity = CartItem::whereHas('carts', function ($query) use ($user_id){
+            $query->where('user_id', $user_id);
+        })->where('tenant_menu_id', $id)->first();
+        if($quantity != null) $quantity = $quantity->quantity;
+        else $quantity = 0;
+        return view('customer.tenant_detail', compact('tenant', 'menu', 'quantity'));
+    }
+    public function handleAddToCart($id, $isUpdate){
+        $tenant_id = Tenant::whereHas('tenantMenus', function ($query) use ($id) {
+            $query->where('id', $id);
+        })->first()->id;
+        $user_id = Auth::guard('web')->id();
+
+        // check if the cart is created
+        $currCart = Cart::where('user_id', $user_id)->first();
+        if($currCart == null) {
+            $currCart = Cart::create([
+                'user_id' => $user_id,
+                'status' => 'true'
+            ]);
+        }
+
+        $currCartItem = CartItem::where('cart_id', $currCart->id)->where('tenant_menu_id',$tenant_id)->first();
+
+        if($currCartItem == null) {
+            CartItem::create([
+                'cart_id' => $currCart->id,
+                'tenant_menu_id' => $tenant_id,
+                'quantity' => 1
+            ]);
+        } else {
+            $identifier = $isUpdate == 1 ? 1 : -1;
+            if($currCartItem->quantity == 1 && $isUpdate == 2) $currCartItem->delete();
+            else {
+                $currCartItem->quantity += $identifier;
+                $currCartItem->save();
+            }
+        }
+        return redirect()->back();
     }
 
     /**
