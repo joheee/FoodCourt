@@ -34,7 +34,7 @@ class AdminController extends Controller
         // Prepare data for creating a new tenant menu
         $data = $request->except('tenant_picture');
         $data['tenant_picture'] = $imageName;
-        $request['password'] = Hash::make($request['password']);
+        $data['password'] = Hash::make($request['password']);
         $data['super_user_id'] = Auth::guard('superuser')->id();
 
         Tenant::create($data);
