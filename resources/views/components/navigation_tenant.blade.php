@@ -3,18 +3,38 @@
 @section('content')
 <body style="background-color: #22C7A9;">
 
-    <div class="p-2 py-3">
-        <div class="text-center font-weight-bold">Tenant</div>
-        <div class="d-flex justify-content-center gap-5">
-            <a class="navbar-button" href="{{route('tenant.allPage')}}">All</a>
-            <a class="navbar-button" href="{{route('tenant.menuPage')}}">Menu</a>
-            <a class="navbar-button" href="{{route('tenant.orderPage')}}">Order</a>
-            <a class="navbar-button" href="{{route('tenant.transactionPage')}}">Transaction</a>
-            <a class="navbar-button" href="{{route('tenant.categoryPage')}}">Category</a>
-            <a class="navbar-button" href="{{route('guest.handleLogout')}}">Logout</a>
-        </div>
-    </div>
 
-    @yield('inner-content')
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between px-2" style="width: 100vw;">
+        <span class="navbar-brand text-center h1 fw-bold mb-0 logo">E - Foodcourt</span>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('customer.landingPage')}}">Tenant</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.allPage')}}">All</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.menuPage')}}">Menu</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.orderPage')}}">Order</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.transactionPage')}}">Transaction</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.categoryPage')}}">Category</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('guest.handleLogout')}}">Logout</a>
+                </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="m-5">
+        @yield('inner-content')
+    </div>
 </body>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -15,14 +16,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [UserController::class, 'loginPage'])->name('guest.loginPage');
-Route::post('/', [UserController::class, 'handleLogin'])->name('guest.handleLogin');
-Route::get('/register', [UserController::class, 'registerPage'])->name('guest.registerPage');
-Route::post('/register', [UserController::class, 'handleRegister'])->name('guest.handleRegister');
 Route::get('logout', [UserController::class, 'handleLogout'])->name('guest.handleLogout');
 
-Route::prefix('tenant')->group(function () {
+Route::middleware('guest_middleware')->group(function() {
+    Route::get('/', [UserController::class, 'loginPage'])->name('guest.loginPage');
+    Route::post('/', [UserController::class, 'handleLogin'])->name('guest.handleLogin');
+    Route::get('/register', [UserController::class, 'registerPage'])->name('guest.registerPage');
+    Route::post('/register', [UserController::class, 'handleRegister'])->name('guest.handleRegister');
+});
+
+Route::prefix('tenant')->middleware('tenant_middleware')->group(function () {
     Route::get('/', [TenantController::class, 'allPage'])->name('tenant.allPage');
     Route::get('/order', [TenantController::class, 'orderPage'])->name('tenant.orderPage');
     Route::get('/transaction', [TenantController::class, 'transactionPage'])->name('tenant.transactionPage');
@@ -36,8 +39,13 @@ Route::prefix('tenant')->group(function () {
     Route::post('/category/add', [TenantController::class, 'handleCategoryAdd'])->name('tenant.handleCategoryAdd');
 });
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->middleware('admin')->group(function() {
     Route::get('/', [AdminController::class, 'dashboardPage'])->name('admin.dashboardPage');
     Route::get('/tenant-register', [AdminController::class, 'tenantRegisterPage'])->name('admin.tenantRegisterPage');
     Route::post('/tenant-register', [AdminController::class, 'handleTenantRegister'])->name('admin.handleTenantRegister');
+});
+
+Route::prefix('customer')->middleware('customer')->group(function() {
+    Route::get('/', [CustomerController::class, 'landingPage'])->name('customer.landingPage');
+    Route::get('/tenant/{id}', [CustomerController::class, 'tenantDetailPage'])->name('customer.tenantDetailPage');
 });

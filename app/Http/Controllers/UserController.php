@@ -47,7 +47,7 @@ class UserController extends Controller
         Cookie::queue('last_email', $request['email'], 60 * 24 * 30);
 
         if(Auth::guard('web')->attempt($request->only('email','password'))){
-            return redirect()->route('guest.registerPage');
+            return redirect()->route('customer.landingPage');
         }
         if(Auth::guard('superuser')->attempt($request->only('email','password'))) {
             return redirect()->route('admin.dashboardPage');
