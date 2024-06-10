@@ -62,6 +62,12 @@ class CustomerController extends Controller
         return redirect()->back();
     }
 
+    public function customerCartPage(){
+        $user_id = Auth::guard('web')->id();
+        $menu = Cart::where('user_id', '=', $user_id)->first();
+        return view('customer.customer_cart', compact('menu'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

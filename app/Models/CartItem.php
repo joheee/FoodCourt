@@ -30,7 +30,7 @@ class CartItem extends Model
 
     public function tenantMenus(): BelongsTo
     {
-        return $this->belongsTo(TenantMenu::class);
+        return $this->belongsTo(TenantMenu::class, 'tenant_menu_id');
     }
 
     public function carts(): BelongsTo
