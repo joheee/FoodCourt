@@ -41,70 +41,37 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboardPage');
     }
 
+    public function editTenantPage($id){
+        $tenant = Tenant::find($id)->first();
+        return view('admin.tenant_edit', compact('tenant'));
+    }
+    public function handleEditTenantPage($id, Request $request){
+        $request->validate([
+            'tenant_name' => 'required|string|max:255',
+            'tenant_location' => 'required|string|max:20',
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // Extract all request data except the 'tenant_picture'
+        $data = $request->except('tenant_picture');
+
+        // If a new tenant picture is uploaded, process it
+        if ($request->hasFile('tenant_picture')) {
+            $image = $request->file('tenant_picture');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/assets/tenant', $imageName);
+            $data['tenant_picture'] = $imageName;
+        }
+
+        // Find the tenant by ID
+        $tenant = Tenant::findOrFail($id);
+        $tenant->update($data);
+
+        return redirect()->route('admin.dashboardPage');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function handleDeleteTenant($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        Tenant::destroy($id);
+        return redirect()->route('admin.dashboardPage');
     }
 }

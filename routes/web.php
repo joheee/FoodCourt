@@ -43,6 +43,9 @@ Route::prefix('admin')->middleware('admin')->group(function() {
     Route::get('/', [AdminController::class, 'dashboardPage'])->name('admin.dashboardPage');
     Route::get('/tenant-register', [AdminController::class, 'tenantRegisterPage'])->name('admin.tenantRegisterPage');
     Route::post('/tenant-register', [AdminController::class, 'handleTenantRegister'])->name('admin.handleTenantRegister');
+    Route::get('/tenant-edit/{id}', [AdminController::class, 'editTenantPage'])->name('admin.editTenantPage');
+    Route::post('/tenant-edit/{id}', [AdminController::class, 'handleEditTenantPage'])->name('admin.handleEditTenantPage');
+    Route::delete('/tenant-delete/{id}', [AdminController::class, 'handleDeleteTenant'])->name('admin.handleDeleteTenant');
 });
 
 Route::prefix('customer')->middleware('customer')->group(function() {
