@@ -22,12 +22,7 @@ class CustomerController extends Controller
         $menu = $tenant->tenantMenus;
         $user_id = Auth::guard('web')->id();
 
-        $quantity = CartItem::whereHas('carts', function ($query) use ($user_id){
-            $query->where('user_id', $user_id);
-        })->where('tenant_menu_id', $id)->first();
-        if($quantity != null) $quantity = $quantity->quantity;
-        else $quantity = 0;
-        return view('customer.tenant_detail', compact('tenant', 'menu', 'quantity'));
+        return view('customer.tenant_detail', compact('tenant', 'menu'));
     }
     public function handleAddToCart($id, $isUpdate){
         $currTenant = Tenant::whereHas('tenantMenus', function ($query) use ($id) {
@@ -35,7 +30,7 @@ class CustomerController extends Controller
         })->first();
         $tenant_id = $currTenant->id;
 
-        $currMenu_id = TenantMenu::where('id',$id)->first()->id;
+        $currMenu_id = $id;
         $user_id = Auth::guard('web')->id();
 
         // check if the cart is created
@@ -47,7 +42,7 @@ class CustomerController extends Controller
             ]);
         }
 
-        $currCartItem = CartItem::where('cart_id', $currCart->id)->where('tenant_menu_id',$tenant_id)->first();
+        $currCartItem = CartItem::where('cart_id', $currCart->id)->where('tenant_menu_id',$currMenu_id)->first();
 
         if($currCartItem == null) {
             // dd($currMenu_id);

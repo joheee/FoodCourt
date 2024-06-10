@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'aaaa',
             'email' => 'aaaa@gmail.com',
             'phone_number' => '089620031234',
-            'password' => Hash::make('user_a'),
+            'password' => Hash::make('aaaa'),
         ]);
         SuperUser::create([
             'name' => 'admin',

@@ -86,6 +86,31 @@ class TenantController extends Controller
             ->with('success', 'Tenant created successfully.');
     }
 
+    public function editMenuPage($id) {
+        $tenantMenu = TenantMenu::find($id)->first();
+        $category = TenantMenuCategory::all();
+        return view('tenant.menu_edit', compact('tenantMenu', 'category'));
+    }
+    public function handleEditMenuPage($id, Request $request) {
+        $request->validate([
+            'tenant_menu_name' => 'required|min:3|unique:tenant_menus,tenant_menu_name',
+            'tenant_menu_price' => 'required',
+            'tenant_menu_description' => 'required|min:3',
+        ]);
+        $data = $request->except('tenant_menu_picture');
+
+        if($request->tenant_menu_picture != null) {
+            $image = $request->file('tenant_menu_picture');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/assets/menu', $imageName);
+            $data['tenant_menu_picture'] = $imageName;
+        }
+
+        // Create a new tenant menu
+        TenantMenu::findOrFail($id)->update($data);
+        return redirect()->route('tenant.menuPage');
+    }
+
     /**
      * Display a listing of the resource.
      *

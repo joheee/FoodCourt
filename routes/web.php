@@ -31,6 +31,8 @@ Route::prefix('tenant')->middleware('tenant_middleware')->group(function () {
     Route::get('/transaction', [TenantController::class, 'transactionPage'])->name('tenant.transactionPage');
 
     Route::get('/menu', [TenantController::class, 'menuPage'])->name('tenant.menuPage');
+    Route::get('/menu-edit/{id}', [TenantController::class, 'editMenuPage'])->name('tenant.editMenuPage');
+    Route::post('/menu-edit/{id}', [TenantController::class, 'handleEditMenuPage'])->name('tenant.handleEditMenuPage');
     Route::get('/menu/add', [TenantController::class, 'menuAddPage'])->name('tenant.menuAddPage');
     Route::post('/menu/add', [TenantController::class, 'handleMenuAdd'])->name('tenant.handleMenuAdd');
 

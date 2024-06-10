@@ -47,7 +47,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                  <form method="POST" enctype="multipart/form-data" action="{{route('admin.handleEditTenantPage', ['id' => $tenant->id])}}">
+                <form method="POST" enctype="multipart/form-data" action="{{route('admin.handleEditTenantPage', ['id' => $tenant->id])}}">
                     @csrf
                     <a href="" class="d-flex align-items-center mb-3 pb-1">
                         <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>
@@ -80,18 +80,17 @@
                     @endif
 
                     <div class="mb-4 d-flex justify-content-center align-items-center gap-4">
-                        <button class="btn btn-dark btn-lg" type="button">Edit</button>
+                        <button class="btn btn-dark btn-lg" type="submit">Edit</button>
                     </div>
+                </form>
 
-
-                    <p class="mb-5 pb-lg-2" style="color: #393f81;">back to dashboard? <a href={{route('admin.dashboardPage')}}
-                        style="color: #22C7A9;">Click here</a></p>
-                  </form>
-                    <form action="{{ route('admin.handleDeleteTenant', ['id' => $tenant->id]) }}" method="POST" onsubmit="return confirmDelete();">
+                    <form class="mb-4 d-flex justify-content-center" action="{{ route('admin.handleDeleteTenant', ['id' => $tenant->id]) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                     </form>
+
+                    <p class="mb-2 pb-lg-2" style="color: #393f81;">back to dashboard? <a href={{route('admin.dashboardPage')}} style="color: #22C7A9;">Click here</a></p>
 
                     <script>
                         function confirmDelete() {
