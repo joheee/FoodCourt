@@ -52,5 +52,14 @@ class DatabaseSeeder extends Seeder
             'tenant_menu_price' => '60000',
             'tenant_menu_status' => '1',
         ]);
+        TenantMenu::create([
+            'tenant_id' => 1,
+            'tenant_menu_category_id' => 1,
+            'tenant_menu_name' => 'testing',
+            'tenant_menu_picture' => '1717518067.jpg',
+            'tenant_menu_description' => 'best testing ever!',
+            'tenant_menu_price' => '30000',
+            'tenant_menu_status' => '1',
+        ]);
     }
 }

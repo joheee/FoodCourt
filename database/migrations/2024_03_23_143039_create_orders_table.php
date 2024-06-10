@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained('tenants')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('payment_picture');
             $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
             $table->integer('order_status');
             $table->timestamps();

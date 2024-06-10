@@ -67,6 +67,26 @@ class CustomerController extends Controller
         $menu = Cart::where('user_id', '=', $user_id)->first();
         return view('customer.customer_cart', compact('menu'));
     }
+    public function customerCheckoutPage(){
+        $user_id = Auth::guard('web')->id();
+        $menu = Cart::where('user_id', '=', $user_id)->first();
+        $total = 0;
+        foreach ($menu->cartItems as $c) {
+            $total += $c->quantity * $c->tenantMenus->tenant_menu_price;
+            }
+            return view('customer.customer_checkout', compact('menu', 'total'));
+            }
+
+    public function handleCustomerCheckout(Request $request){
+        $request->validate([
+            'total_price' => 'required',
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
+            ]);
+        $user_id = Auth::guard('web')->id();
+        $user_cart = Cart::where('user_id', '=', $user_id)->first();
+        $cart_id = $user_cart->id;
+        
+    }
 
     /**
      * Show the form for creating a new resource.
