@@ -56,5 +56,8 @@ Route::prefix('customer')->middleware('customer')->group(function() {
     Route::get('/cart/{id}/{isUpdate}', [CustomerController::class, 'handleAddToCart'])->name('customer.handleAddToCart');
     Route::get('/your-cart', [CustomerController::class, 'customerCartPage'])->name('customer.customerCartPage');
     Route::get('/checkout', [CustomerController::class, 'customerCheckoutPage'])->name('customer.customerCheckoutPage');
+    Route::get('/profile', [CustomerController::class, 'customerProfilePage'])->name('customer.customerProfilePage');
+    Route::post('/profile', [CustomerController::class, 'handleUpdateProfile'])->name('customer.handleUpdateProfile');
     Route::post('/checkout', [CustomerController::class, 'handleCustomerCheckout'])->name('customer.handleCustomerCheckout');
+
 });

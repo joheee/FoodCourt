@@ -44,6 +44,6 @@ class TenantMenu extends Model
 
     public function tenants(): BelongsTo
     {
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(Tenant::class, 'tenant_id');
     }
 }

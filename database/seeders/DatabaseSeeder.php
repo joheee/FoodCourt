@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'aaaa',
             'email' => 'aaaa@gmail.com',
+            'picture' => 'yilongma.webp',
             'phone_number' => '089620031234',
             'password' => Hash::make('aaaa'),
         ]);

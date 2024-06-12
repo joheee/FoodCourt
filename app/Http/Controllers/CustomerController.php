@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Models\Tenant;
 use App\Models\TenantMenu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,13 +30,12 @@ class CustomerController extends Controller
         $currTenant = Tenant::whereHas('tenantMenus', function ($query) use ($id) {
             $query->where('id', $id);
         })->first();
-        $tenant_id = $currTenant->id;
 
         $currMenu_id = $id;
         $user_id = Auth::guard('web')->id();
 
         // check if the cart is created
-        $currCart = Cart::where('user_id', $user_id)->first();
+        $currCart = Cart::where('user_id', $user_id)->where('status','=','true')->first();
         if($currCart == null) {
             $currCart = Cart::create([
                 'user_id' => $user_id,
@@ -64,7 +65,7 @@ class CustomerController extends Controller
 
     public function customerCartPage(){
         $user_id = Auth::guard('web')->id();
-        $menu = Cart::where('user_id', '=', $user_id)->first();
+        $menu = Cart::where('user_id', '=', $user_id)->where('status','=','true')->first();
         return view('customer.customer_cart', compact('menu'));
     }
     public function customerCheckoutPage(){
@@ -74,36 +75,62 @@ class CustomerController extends Controller
         foreach ($menu->cartItems as $c) {
             $total += $c->quantity * $c->tenantMenus->tenant_menu_price;
             }
-            return view('customer.customer_checkout', compact('menu', 'total'));
-            }
+        return view('customer.customer_checkout', compact('menu', 'total'));
+    }
 
     public function handleCustomerCheckout(Request $request){
         $request->validate([
             'total_price' => 'required',
-            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
-            ]);
+            'payment_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
+        ]);
         $user_id = Auth::guard('web')->id();
-        $user_cart = Cart::where('user_id', '=', $user_id)->first();
+        $user_cart = Cart::where('user_id', '=', $user_id)->where('status','=','true')->first();
         $cart_id = $user_cart->id;
-        
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        foreach ($user_cart->cartItems as $c) {
+            $tenant_id = $c->tenantMenus->tenants->id;
+            $data['user_id'] = $user_id;
+            $data['cart_id'] = $cart_id;
+            $data['tenant_id'] = $tenant_id;
+            $data['order_status'] = 0;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+            $image = $request->file('payment_picture');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/assets/payment', $imageName);
+            $data['payment_picture']  = $imageName;
+
+            Order::create($data);
+            $user_cart->status = 'false';
+            $user_cart->save();
+        }
+
+        return redirect()->route('customer.landingPage');
+    }
+    public function customerProfilePage(){
+        $user = Auth::guard('web')->user();
+        return view('customer.customer_profile', compact('user'));
+    }
+    public function handleUpdateProfile(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
+        ]);
+
+        $data = $request->except('picture');
+
+        if ($request->hasFile('picture')) {
+            $image = $request->file('picture');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/assets/user', $imageName);
+            $data['picture'] = $imageName;
+        }
+
+        $id = Auth::guard('web')->user()->id;
+        $user = User::findOrFail($id);
+        $user->update($data);
+
+        return redirect()->back();
+    }
     public function store(Request $request)
     {
         //

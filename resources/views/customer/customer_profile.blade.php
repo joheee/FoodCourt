@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title','Sign Up | E - Foodcourt')
+@section('title','Tenant Edit | E - Foodcourt')
 
 @section('content')
 
@@ -32,6 +32,20 @@
     height: 100%;
 }
 
+.container {
+padding: 2rem 0rem;
+}
+
+h4 {
+margin: 2rem 0rem 1rem;
+}
+
+.table-image {
+td, th {
+    vertical-align: middle;
+}
+}
+
 </style>
 
 <section class="vh-100" style="background-color: #22C7A9;">
@@ -39,52 +53,32 @@
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-10">
           <div class="card overflow-hidden" style="border-radius: 1rem;">
-            <div class="row g-0">
-                <div class="col-md-6 col-lg-5 d-none d-md-flex align-items-center justify-content-center" style="background-color: #22C7A9;">
-                    <img src={{asset('storage/assets/login.png')}}
-                      alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-                  </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                  <form method="POST" enctype="multipart/form-data" action="{{route('guest.handleRegister')}}">
+                <form method="POST" enctype="multipart/form-data" action="{{route('customer.handleUpdateProfile')}}" class="d-flex flex-column align-items-center">
                     @csrf
                     <a href="" class="d-flex align-items-center mb-3 pb-1">
                         <span class="h1 fw-bold mb-0 logo">E - Foodcourt</span>
                     </a>
 
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Hola new user!</h5>
-
-                    <div class="form-outline mb-4">
-                        <input type="text" id="form2Example17" class="form-control form-control-lg" name='name' placeholder="input your name"/>
+                    <div class="form-outline">
+                        <input value="{{$user->name}}" type="text" id="form2Example27" class="" name="name" placeholder="user's name"/>
                     </div>
 
-                    <div class="form-outline mb-4">
-                        <input type="number" id="form2Example17" class="form-control form-control-lg" name='phone_number' placeholder="input your phone number"/>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="text" id="form2Example17" class="form-control form-control-lg" name="email" placeholder="input your email"/>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="password" id="form2Example27" class="form-control form-control-lg" name='password' placeholder="input your password"/>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="password" id="form2Example27" class="form-control form-control-lg" name='confirm_password' placeholder="confirm your password"/>
+                    <div class="form-outline">
+                        <input value="{{$user->phone_number}}" type="number" id="form2Example27" class="" name="phone_number" placeholder="user's phone number"/>
                     </div>
 
                     <div class="card bg-image" style="margin-bottom: 25px !important; height: 250px; position: relative;">
                         <input type="file" name="picture" id="imageInput" style="display: none;" accept="image/*" />
                         <label for="imageInput" class="card-img-label" style="cursor: pointer; display: block; height: 100%; width: 100%;">
-                            <img src="{{asset('storage/assets/sushi.jpg')}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
+                            <img src="{{asset('storage/assets/user/'.$user->picture)}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
                             <div class="card-img-overlay d-flex justify-content-center align-items-center" style="background: rgba(0, 0, 0, 0.3);">
                                 <i class="fa-solid fa-plus text-white" style="font-size: 24px;"></i>
                             </div>
                         </label>
                     </div>
-
 
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert" >
@@ -92,23 +86,23 @@
                         </div>
                     @endif
 
-                    <div class="pt-1 mb-4">
-                        <button class="btn btn-dark btn-lg btn-block" type="submit" >sign up</button>
+                    <div class="mb-4 d-flex justify-content-center align-items-center gap-4">
+                        <button class="btn btn-dark btn-lg" type="submit">update profile</button>
                     </div>
+                </form>
 
-                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href={{route('guest.loginPage')}}
-                        style="color: #22C7A9;">Sign in here</a></p>
-                  </form>
+
+                    <p class="mb-2 pb-lg-2" style="color: #393f81;">back to dashboard? <a href={{route('customer.landingPage')}} style="color: #22C7A9;">Click here</a></p>
+
 
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
-
 </section>
+
 
 <script>
 document.getElementById('imageInput').addEventListener('change', function(event) {
@@ -117,6 +111,7 @@ document.getElementById('imageInput').addEventListener('change', function(event)
         document.getElementById('imagePreview').src = URL.createObjectURL(file);
     }
 });
+
 </script>
 
 @endsection

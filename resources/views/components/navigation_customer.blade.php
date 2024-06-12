@@ -17,6 +17,9 @@
                     <a class="nav-link" href="{{route('tenant.allPage')}}">History</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('customer.customerProfilePage')}}">Profile</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('guest.handleLogout')}}">Logout</a>
                 </li>
           </ul>

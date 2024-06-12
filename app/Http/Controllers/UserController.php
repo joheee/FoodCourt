@@ -29,11 +29,20 @@ class UserController extends Controller
             'phone_number' => 'required|string|max:255',
             'password' => 'required|string|min:4',
             'confirm_password' => 'required|string|min:4',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000',
         ]);
+
+        $image = $request->file('picture');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/assets/user', $imageName);
+        $request['picture'] = $imageName;
 
         $request['password'] = Hash::make($request['password']);
         Cookie::queue('last_email', $request['email'], 60 * 24 * 30);
-        User::create($request->all());
+
+        $data = $request->all();
+        $data['picture'] = $imageName;
+        User::create($data);
 
         return redirect()->route('guest.loginPage')
             ->with('success', 'User created successfully.');

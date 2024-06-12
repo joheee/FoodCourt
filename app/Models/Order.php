@@ -25,6 +25,7 @@ class Order extends Model
      */
     protected $fillable = [
         'tenant_id',
+        'payment_picture',
         'user_id',
         'cart_id',
         'order_status',

@@ -98,9 +98,9 @@ td, th {
                     </div>
 
                     <div class="card bg-image" style="margin-bottom: 25px !important; height: 250px; position: relative;">
-                        <input type="file" name="payment_proof" id="imageInput" style="display: none;" accept="image/*" />
+                        <input type="file" name="payment_picture" id="imageInput" style="display: none;" accept="image/*" />
                         <label for="imageInput" class="card-img-label" style="cursor: pointer; display: block; height: 100%; width: 100%;">
-                            <img src="{{asset('storage/assets/tenant/')}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
+                            <img src="{{asset('storage/assets/payment/payment.jpg')}}" id="imagePreview" class="card-img" alt="..." style="height: 100%; width: 100%; object-fit: cover;">
                             <div class="card-img-overlay d-flex justify-content-center align-items-center" style="background: rgba(0, 0, 0, 0.3);">
                                 <i class="fa-solid fa-plus text-white" style="font-size: 24px;"></i>
                             </div>
