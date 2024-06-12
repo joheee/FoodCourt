@@ -9,9 +9,6 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('customer.landingPage')}}">Tenant</a>
-                </li>
-                <li class="nav-item active">
                     <a class="nav-link" href="{{route('tenant.allPage')}}">All</a>
                 </li>
                 <li class="nav-item active">

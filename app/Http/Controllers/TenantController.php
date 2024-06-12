@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Tenant;
 use App\Models\TenantMenu;
 use App\Models\TenantMenuCategory;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,18 +15,25 @@ class TenantController extends Controller
 {
     public function allPage(){
         $category = TenantMenuCategory::take(6)->get();
-        $menu = TenantMenu::where('tenant_id', Auth::guard('tenant')->id())->take(6)->get();
-        return view('tenant.all', compact('category', 'menu'));
+        $tenant_id = Auth::guard('tenant')->id();
+        $menu = TenantMenu::where('tenant_id', $tenant_id)->take(6)->get();
+        $order = Order::where('tenant_id','=', $tenant_id)->take(6)->get();
+        $transaction = Order::where('tenant_id','=', $tenant_id)->where('order_status','=','1')->take(6)->get();
+        return view('tenant.all', compact('category', 'menu', 'order', 'transaction'));
     }
     public function menuPage(){
         $menu = TenantMenu::where('tenant_id', Auth::guard('tenant')->id())->get();
         return view('tenant.menu', compact('menu'));
     }
     public function orderPage(){
-        return view('tenant.order');
+        $tenant_id = Auth::guard('tenant')->id();
+        $order = Order::where('tenant_id','=', $tenant_id)->get();
+        return view('tenant.order', compact('order'));
     }
     public function transactionPage(){
-        return view('tenant.transaction');
+        $tenant_id = Auth::guard('tenant')->id();
+        $transaction = Order::where('tenant_id','=', $tenant_id)->where('order_status','=','1')->get();
+        return view('tenant.transaction', compact('transaction'));
     }
     public function categoryPage(){
         $category = TenantMenuCategory::all();
@@ -109,6 +119,23 @@ class TenantController extends Controller
         // Create a new tenant menu
         TenantMenu::findOrFail($id)->update($data);
         return redirect()->route('tenant.menuPage');
+    }
+    public function handleConfirmOrder($id){
+        $order = Order::where('id','=',$id)->first();
+        if($order->order_status == 0) {
+            $data['payment_status'] =   true;
+            $data['payment_url'] = $order->payment_picture;
+            $payment = Payment::create($data);
+
+            $transactionData['payment_id'] = $payment->id;
+            $transactionData['order_id'] = $id;
+
+            Transaction::create($transactionData);
+            $order->order_status = 1;
+            $order->save();
+        }
+
+        return redirect()->back();
     }
 
     /**

@@ -28,6 +28,7 @@ Route::middleware('guest_middleware')->group(function() {
 Route::prefix('tenant')->middleware('tenant_middleware')->group(function () {
     Route::get('/', [TenantController::class, 'allPage'])->name('tenant.allPage');
     Route::get('/order', [TenantController::class, 'orderPage'])->name('tenant.orderPage');
+    Route::get('/confirm-order/{id}', [TenantController::class, 'handleConfirmOrder'])->name('tenant.handleConfirmOrder');
     Route::get('/transaction', [TenantController::class, 'transactionPage'])->name('tenant.transactionPage');
 
     Route::get('/menu', [TenantController::class, 'menuPage'])->name('tenant.menuPage');

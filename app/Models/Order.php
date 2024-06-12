@@ -33,7 +33,7 @@ class Order extends Model
 
     public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function tenants(): BelongsTo
@@ -43,7 +43,7 @@ class Order extends Model
 
     public function transactions(): HasOne
     {
-        return $this->HasOne(Transaction::class);
+        return $this->HasOne(Transaction::class, 'order_id', 'id');
     }
 
     public function cart(): BelongsTo
