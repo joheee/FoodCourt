@@ -59,5 +59,5 @@ Route::prefix('customer')->middleware('customer')->group(function() {
     Route::get('/profile', [CustomerController::class, 'customerProfilePage'])->name('customer.customerProfilePage');
     Route::post('/profile', [CustomerController::class, 'handleUpdateProfile'])->name('customer.handleUpdateProfile');
     Route::post('/checkout', [CustomerController::class, 'handleCustomerCheckout'])->name('customer.handleCustomerCheckout');
-
+    Route::get('/history', [CustomerController::class, 'customerHistoryPage'])->name('customer.customerHistoryPage');
 });

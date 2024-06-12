@@ -14,7 +14,7 @@
                     <a class="nav-link" href="{{route('customer.customerCartPage')}}">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('tenant.allPage')}}">History</a>
+                    <a class="nav-link" href="{{route('customer.customerHistoryPage')}}">History</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('customer.customerProfilePage')}}">Profile</a>

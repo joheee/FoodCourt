@@ -131,9 +131,11 @@ class CustomerController extends Controller
 
         return redirect()->back();
     }
-    public function store(Request $request)
-    {
-        //
+
+    public function customerHistoryPage(){
+        $id = Auth::guard('web')->user()->id;
+        $order = Order::where('user_id','=',$id)->get();
+        return view('customer.customer_history', compact('order'));
     }
 
     /**
