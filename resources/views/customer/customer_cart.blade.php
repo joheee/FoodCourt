@@ -11,7 +11,7 @@
                 <div class="card-img-overlay">
                     <h5 class="card-title text-white">{{$c->tenantMenus->tenant_menu_name}}</h5>
                     <p class="card-text text-white">{{$c->tenantMenus->tenant_menu_description}}</p>
-                    <p class="card-text text-white"><small class="">IDR {{$c->tenantMenus->tenant_menu_price}}</small></p>
+                    <p class="card-text text-white"><small class="">IDR {{$c->tenantMenus->tenant_menu_price * $c->quantity}}</small></p>
                     <div class="d-flex align-items-center gap-2">
                         <a onClick="alert('success remove from to cart!')" href="{{ route('customer.handleAddToCart', ['id' => $c->tenantMenus->id, 'isUpdate' => 2]) }}" class="btn btn-secondary btn-sm">-</a>
                         <span class="text-white">{{$c->quantity}}</span>

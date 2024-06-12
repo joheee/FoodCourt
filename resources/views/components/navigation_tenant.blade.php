@@ -24,6 +24,9 @@
                     <a class="nav-link" href="{{route('tenant.categoryPage')}}">Category</a>
                 </li>
                 <li class="nav-item active">
+                    <a class="nav-link" href="{{route('tenant.categoryPage')}}">Profile</a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="{{route('guest.handleLogout')}}">Logout</a>
                 </li>
           </ul>

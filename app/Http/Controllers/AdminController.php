@@ -42,7 +42,7 @@ class AdminController extends Controller
     }
 
     public function editTenantPage($id){
-        $tenant = Tenant::find($id)->first();
+        $tenant = Tenant::where('id','=',$id)->first();
         return view('admin.tenant_edit', compact('tenant'));
     }
     public function handleEditTenantPage($id, Request $request){
